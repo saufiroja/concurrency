@@ -167,3 +167,24 @@ package main
 // 		fmt.Println("Value from channel 2: ", value)
 // 	}
 // }
+
+// func main() {
+// 	fmt.Println("Start")
+// 	// Create a WaitGroup
+// 	var wg sync.WaitGroup
+
+// 	// Add 1 to the WaitGroup
+// 	wg.Add(1)
+
+// 	// call display function with go routine
+// 	go func() {
+// 		// call Done function on WaitGroup
+// 		defer wg.Done()
+// 		fmt.Println(1)
+// 	}()
+
+// 	// Wait until the WaitGroup counter goes to 0
+// 	wg.Wait()
+
+// 	fmt.Println("End")
+// }

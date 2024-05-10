@@ -55,6 +55,34 @@ func display(number int) {
 
 kita bisa menggunakan `time.Sleep()` untuk menunggu goroutine selesai. Program ini membuat Goroutine utama menunggu selama 1 detik sebelum menampilkan output.
 
+```go
+func main() {
+	fmt.Println("Start")
+	// Create a WaitGroup
+	var wg sync.WaitGroup
+
+	// Add 1 to the WaitGroup
+	wg.Add(1)
+
+	// call display function with go routine
+	go func() {
+		// call Done function on WaitGroup
+		defer wg.Done()
+		fmt.Println(1)
+	}()
+
+	// Wait until the WaitGroup counter goes to 0
+	wg.Wait()
+
+	fmt.Println("End")
+}
+
+//output
+Start
+1
+End
+```
+
 # Keuntungan Goroutine
 
 - Goroutine sangat murah daripada thread biasa.
@@ -105,12 +133,11 @@ Value of channel: 0xc00001c0c0
 
 Dalam Go, Channel bekerja dengan 2 fungsi utama, yaitu mengirim dan menerima data, kedua fungsi ini secara kolektif dikenal sebagai komunikasi. Dan operasi ini dilakukan dengan menggunakan operator `<-`. Dalam channel,
 
-1. Operasi Send
-   Operasi ini digunakan untuk mengirim data dari satu goroutine ke goroutine lainnya melalui channel. Value seperti string, integer, atau tipe data lainnya dapat dengan aman dikirim melalui channel karena value tersebut dicopy sehingga tidak ada resiko akses bersamaan. Tetapi untuk mengirim pointer atau reference melalui channel tidak aman karena value dari pointer atau reference tersebut bisa berubah oleh goroutine pengirim atau penerima pada saat yang sama. Di bawah ini adalah contoh operasi send.
+1. Operasi Send, Operasi ini digunakan untuk mengirim data dari satu goroutine ke goroutine lainnya melalui channel. Value seperti string, integer, atau tipe data lainnya dapat dengan aman dikirim melalui channel karena value tersebut dicopy sehingga tidak ada resiko akses bersamaan. Tetapi untuk mengirim pointer atau reference melalui channel tidak aman karena value dari pointer atau reference tersebut bisa berubah oleh goroutine pengirim atau penerima pada saat yang sama. Di bawah ini adalah contoh operasi send.
    ```go
    ch <- 10
    ```
-2. Operasi Menerima
+1. Operasi Receive
    ```go
    value := <- ch
    ```
